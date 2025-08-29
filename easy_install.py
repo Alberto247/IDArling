@@ -18,9 +18,6 @@ import zipfile
 import ida_diskio
 import ida_loader
 
-# Allow the user to override the download URL
-if "URL" not in locals():
-    URL = "https://github.com/IDArlingTeam/IDArling/archive/master.zip"
 
 print("[*] Installing IDArling...")
 # Install into the user directory on all platforms
@@ -29,39 +26,26 @@ plug_dir = os.path.join(user_dir, "plugins")
 if not os.path.exists(plug_dir):
     os.makedirs(plug_dir, 493)  # 0755
 
-print("[*] Downloading master.zip archive...")
-archive_path = os.path.join(plug_dir, "master.zip")
-if os.path.exists(archive_path):
-    os.remove(archive_path)
-with open(archive_path, "wb") as f:
-    f.write(urllib2.urlopen(URL).read())
-
-print("[*] Unzipping master.zip archive...")
-archive_dir = os.path.join(plug_dir, "IDArling-master")
-if os.path.exists(archive_dir):
-    shutil.rmtree(archive_dir)
-with zipfile.ZipFile(archive_path, "r") as zip:
-    for zip_file in zip.namelist():
-        if zip_file.startswith(os.path.basename(archive_dir)):
-            zip.extract(zip_file, plug_dir)
+# Get current file path
+current_file_path = os.path.dirname(os.path.abspath(__file__))
+# Ensure idarling_plugin.py and the idarling directory exist
+if not os.path.exists(os.path.join(plug_dir, "idarling_plugin.py")):
+    print("[!] idarling_plugin.py not found!")
+if not os.path.exists(os.path.join(plug_dir, "idarling")):
+    print("[!] idarling directory not found!")
+    
 
 print("[*] Moving the IDArling files...")
-src_path = os.path.join(archive_dir, "idarling_plugin.py")
+src_path = os.path.join(current_file_path, "idarling_plugin.py")
 dst_path = os.path.join(plug_dir, os.path.basename(src_path))
 if os.path.exists(dst_path):
     os.remove(dst_path)
 shutil.move(src_path, dst_path)
-src_dir = os.path.join(archive_dir, "idarling")
+src_dir = os.path.join(current_file_path, "idarling")
 dst_dir = os.path.join(plug_dir, os.path.basename(src_dir))
 if os.path.exists(dst_dir):
     shutil.rmtree(dst_dir)
 shutil.move(src_dir, dst_dir)
-
-print("[*] Removing master.zip archive...")
-if os.path.exists(archive_path):
-    os.remove(archive_path)
-if os.path.exists(archive_dir):
-    shutil.rmtree(archive_dir)
 
 print("[*] Loading IDArling into IDA Pro...")
 plugin_path = os.path.join(plug_dir, "idarling_plugin.py")
