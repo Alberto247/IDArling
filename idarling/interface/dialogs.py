@@ -20,28 +20,9 @@ import ida_loader
 import ida_nalt
 import idc
 
-from PyQt5.QtCore import QRegExp, Qt, QDir  # noqa: I202
-from PyQt5.QtGui import QIcon, QRegExpValidator
-from PyQt5.QtWidgets import (
-    QCheckBox,
-    QColorDialog,
-    QComboBox,
-    QDialog,
-    QFormLayout,
-    QGridLayout,
-    QGroupBox,
-    QHBoxLayout,
-    QHeaderView,
-    QLabel,
-    QLineEdit,
-    QMessageBox,
-    QPushButton,
-    QSpinBox,
-    QTableWidget,
-    QTableWidgetItem,
-    QTabWidget,
-    QVBoxLayout,
-    QWidget, QSizePolicy, QFileDialog,
+from .qt_compat import (
+    QRegExp, Qt, QDir, QIcon, QRegularExpressionValidator,
+    QCheckBox, QColorDialog, QComboBox, QDialog, QFormLayout, QGridLayout, QGroupBox, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QMessageBox, QPushButton, QSpinBox, QTableWidget, QTableWidgetItem, QTabWidget, QVBoxLayout, QWidget, QSizePolicy, QFileDialog
 )
 
 from ..shared.commands import (
@@ -601,6 +582,8 @@ class SaveDialog(OpenDialog):
         # This decode is safe, because we have an hash in hex format
         hash = binascii.hexlify(hash).decode('utf-8')
         file = ida_nalt.get_root_filename()
+        
+        self._plugin.logger.info("Creating binary with file path: %s" % file)
         ftype = ida_loader.get_file_type_name()
         date_format = "%Y/%m/%d %H:%M"
         date = datetime.datetime.now().strftime(date_format)
@@ -685,7 +668,7 @@ class CreateProjectDialog(QDialog):
         self._nameLabel = QLabel("<b>Project Name</b>")
         layout.addWidget(self._nameLabel)
         self._nameEdit = QLineEdit()
-        self._nameEdit.setValidator(QRegExpValidator(QRegExp("[a-zA-Z0-9-]+")))
+        self._nameEdit.setValidator(QRegularExpressionValidator(QRegExp("[a-zA-Z0-9-]+")))
         layout.addWidget(self._nameEdit)
 
         buttons = QWidget(self)

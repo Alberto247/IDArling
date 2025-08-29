@@ -10,16 +10,7 @@
 
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
-from PyQt5.QtCore import (
-    pyqtProperty,
-    QPoint,
-    QPropertyAnimation,
-    QRect,
-    Qt,
-    QTimer,
-)
-from PyQt5.QtGui import QBrush, QColor, QPainter
-from PyQt5.QtWidgets import QHBoxLayout, QLabel, QWidget
+from .qt_compat import QPoint, Qt, QTimer, QWidget, QLabel, pyqtProperty, QPropertyAnimation, QRect, QBrush, QColor, QPainter, QHBoxLayout
 
 
 class Invite(QWidget):

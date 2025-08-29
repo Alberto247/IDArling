@@ -12,8 +12,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 import time
 
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import qApp, QMainWindow
+from .qt_compat import QPixmap, qApp, QMainWindow
 
 from .actions import OpenAction, SaveAction
 from .filter import EventFilter

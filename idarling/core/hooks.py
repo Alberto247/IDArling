@@ -25,6 +25,7 @@ import ida_netnode
 import ida_pro
 import ida_segment
 import ida_typeinf
+import idc
 
 fDebug = False
 if fDebug:

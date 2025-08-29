@@ -46,11 +46,8 @@ class Core(Module):
     NETNODE_NAME = "$ idarling"
 
     @staticmethod
-    def get_ida_dll(app_name=None):
-        if app_name is None:
-            app_path = QCoreApplication.applicationFilePath()
-            app_name = QFileInfo(app_path).fileName()
-        idaname = "ida64" if "64" in app_name else "ida"
+    def get_ida_dll(bit64 = True):
+        idaname = "ida" if bit64 else "ida32"
         if sys.platform == "win32":
             dllname, dlltype = idaname + ".dll", ctypes.windll
         elif sys.platform in ["linux", "linux2"]:

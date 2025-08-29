@@ -13,18 +13,7 @@
 import ida_funcs
 import ida_kernwin
 
-from PyQt5.QtCore import QEvent, QObject, Qt  # noqa: I202
-from PyQt5.QtGui import QContextMenuEvent, QIcon, QImage, QPixmap, QShowEvent
-from PyQt5.QtWidgets import (
-    QAction,
-    qApp,
-    QDialog,
-    QGroupBox,
-    QLabel,
-    QMenu,
-    QTableView,
-    QWidget,
-)
+from .qt_compat import QEvent, QObject, Qt, QContextMenuEvent, QIcon, QImage, QPixmap, QShowEvent, QAction, qApp, QDialog, QGroupBox, QLabel, QMenu, QWidget, QTableView
 
 from .widget import StatusWidget
 from ..shared.commands import InviteToLocation

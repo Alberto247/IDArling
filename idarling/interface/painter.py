@@ -15,16 +15,7 @@ import sys
 import ida_funcs
 import ida_kernwin
 
-from PyQt5.QtCore import (  # noqa: I202
-    QAbstractItemModel,
-    QModelIndex,
-    QObject,
-    Qt,
-)
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QStyledItemDelegate, QWidget
-import sip
-
+from .qt_compat import QStyledItemDelegate, QWidget, Qt, QAbstractItemModel, QModelIndex, QObject, QColor, sip
 from .widget import StatusWidget
 
 if sys.version_info > (3,):

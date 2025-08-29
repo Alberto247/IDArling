@@ -99,7 +99,7 @@ class Storage(object):
 
     def select_binary(self, name):
         """Select the binary with the given name."""
-        objects = self.select_binaries(name, 1)
+        objects = self.select_binaries(None, name, 1)
         return objects[0] if objects else None
 
     def select_binaries(self, project=None, name=None, limit=None):
